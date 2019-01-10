@@ -34,7 +34,7 @@ def train(env_name='CartPole-v0', hidden_sizes=[32], lr=1e-2,
     act_ph = tf.placeholder(shape=(None,), dtype=tf.int32)
     action_masks = tf.one_hot(act_ph, n_acts)
     log_probs = tf.reduce_sum(action_masks * tf.nn.log_softmax(logits), axis=1)
-    loss = -tf.reduce_mean(weights_ph * log_probs)
+    loss = -tf.reduce_sum(weights_ph * log_probs)
 
     # make train op
     train_op = tf.train.AdamOptimizer(learning_rate=lr).minimize(loss)
